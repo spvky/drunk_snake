@@ -44,8 +44,9 @@ main :: proc() {
 	defer rl.CloseWindow()
 
 	for !rl.WindowShouldClose() {
-		update(&world)
-		draw(world)
+		frametime := rl.GetFrameTime()
+		update(&world, frametime)
+		draw(world, frametime)
 	}
 }
 

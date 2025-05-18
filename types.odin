@@ -13,7 +13,8 @@ Character :: enum {
 Player :: struct {
 	points: [3]Vec2,
 	color: rl.Color,
-	using transform: Transform
+	using transform: Transform,
+	animation_progress: f32,
 }
 
 Segment :: struct {

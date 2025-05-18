@@ -2,9 +2,12 @@ package main
 
 import rl "vendor:raylib"
 
-update :: proc(world: ^World) {
-
+update :: proc(world: ^World, frametime: f32) {
 	player : ^Player = &world.player
+	player.animation_progress += frametime;
+	if player.animation_progress > 1 {
+		player.animation_progress = 0
+	}
 	frametime:=rl.GetFrameTime()
 			y_axis:= rotate({0,1}, player.rotation)
 
