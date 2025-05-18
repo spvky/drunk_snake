@@ -12,14 +12,14 @@ Character :: enum {
 
 Player :: struct {
 	points: [3]Vec2,
-	color: rl.Color,
 	using transform: Transform,
 	animation_progress: f32,
 }
 
 Segment :: struct {
 	using transform: Transform,
-	height: f32
+	height: f32,
+	move_index: int
 }
 
 Transform :: struct {
@@ -31,8 +31,14 @@ Pickup :: struct {
 	using transform: Transform,
 }
 
+TestStruct :: struct {
+	val: int
+}
+
+// Struct that contains all of the data in the game world
 World :: struct {
 	player: Player,
 	segments: [dynamic]Segment,
-	pickups: [dynamic]Pickup
+	pickups: [dynamic]Pickup,
+	positions: [dynamic]Transform
 }

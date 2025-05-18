@@ -13,16 +13,17 @@ import rl "vendor:raylib"
 
 SCREEN_WIDTH  :: 1600
 SCREEN_HEIGHT :: 900
+PLAYER_COLOR :: rl.Color{125,251,152,255}
 
 main :: proc() {
 	world: World = {
 		player = Player{
 			points = {{-10,-20},{10,-20},{0,20}},
-			color = rl.BLUE,
 			translation = {SCREEN_WIDTH /2, SCREEN_HEIGHT/2}
 		},
 		segments = make([dynamic]Segment, 0, 24),
 		pickups = make([dynamic]Pickup, 0, 24),
+		positions = make([dynamic]Transform, 0, 24),
 	}
 
 	when ODIN_DEBUG {

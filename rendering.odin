@@ -4,20 +4,22 @@ import rl "vendor:raylib"
 
 draw :: proc(world: World, frametime: f32) {
 	rl.BeginDrawing()
-	rl.ClearBackground(rl.BLACK)
+	rl.ClearBackground(rl.Color{255,229,180,1})
 	draw_player(world.player)
+	for segment in world.segments {
+		draw_segment(segment)
+	}
 	defer rl.EndDrawing()
 }
 
 
 draw_player :: proc(player: Player) {
-		points: [8]Vec2
-		raw_points: [8]Vec2 = {
-			//First large
+		points: [8]Vec2 = {
+			//First large tri
 			{-15,-30},
 			{15, -30},
 			{0, 30},
-			//Second large
+			//Second large tri
 			{-15,30},
 			{15, 30},
 			{0, -30},
@@ -26,9 +28,14 @@ draw_player :: proc(player: Player) {
 			{30,0},
 		}
 
+		eyes: [2]Vec2 = {
+			{-23,12},
+			{23,12}
+		}
+
 		x_axis:= rotate({1,0}, player.rotation)
 		y_axis:= rotate({0,1}, player.rotation)
-		for point, i in raw_points {
+		for point, i in points {
 			/*
 				points[i] = player.center + (x_axis * point.x) + (y_axis + point.y)
 				will give a fun pseudo 3d rotation
@@ -36,14 +43,36 @@ draw_player :: proc(player: Player) {
 			points[i] = player.translation + (x_axis * point.x) + (y_axis * point.y)
 		}
 
-		rl.DrawTriangle(points[2], points[1], points[0], player.color)
-		rl.DrawTriangle(points[3], points[4], points[5], player.color)
-		rl.DrawTriangle(points[7], points[1], points[4], player.color)
-		rl.DrawTriangle(points[3], points[0], points[6], player.color)
-		// Figure out how to draw this rectangle correctly
-		rl.DrawRectanglePro(points[0],{30,60}, player.rotation, player.color)
+		for eye, i in eyes {
+			eyes[i] = player.translation + (x_axis * eye.x) + (y_axis * eye.y)
+		}
+
+		rl.DrawCircleV(eyes[0],7,rl.BLACK)
+		rl.DrawCircleV(eyes[1],7,rl.BLACK)
+
+		rl.DrawTriangle(points[2], points[1], points[0], PLAYER_COLOR)
+		rl.DrawTriangle(points[3], points[4], points[5], PLAYER_COLOR)
+		rl.DrawTriangle(points[7], points[1], points[4], PLAYER_COLOR)
+		rl.DrawTriangle(points[3], points[0], points[6], PLAYER_COLOR)
+		rl.DrawTriangle(points[7], points[0], points[3], PLAYER_COLOR)
+		rl.DrawTriangle(points[4], points[1], points[6], PLAYER_COLOR)
 }
 
 draw_segment :: proc(segment: Segment) {
+	x_axis:= rotate({1,0}, segment.rotation)
+	y_axis:= rotate({0,1}, segment.rotation)
+	
+	points: [4]Vec2 = {
+		{-15,-20},
+		{15,-20},
+		{15,20},
+		{-15,20}
+	}
 
+	for point, i in points {
+		points[i] = segment.translation + (x_axis * point.x) + (y_axis * point.y)
+	}
+
+	rl.DrawTriangle(points[2],points[1], points[0], PLAYER_COLOR)
+	rl.DrawTriangle(points[3],points[2], points[0], PLAYER_COLOR)
 }
