@@ -14,6 +14,7 @@ Player :: struct {
 	points: [3]Vec2,
 	using transform: Transform,
 	animation_progress: f32,
+	position_timer: f32,
 }
 
 Segment :: struct {

@@ -9,10 +9,15 @@ update :: proc(world: ^World, frametime: f32) {
 		player.animation_progress = 0
 		spawn_segment(world)
 	}
-	frametime:=rl.GetFrameTime()
+	player.position_timer += frametime;
+	if player.position_timer > 0.5 {
+		player.position_timer = 0
+		track_position(world)
+	}
+
 	y_axis:= rotate({0,1}, player.rotation)
-	if rl.IsKeyDown(.D) {player.rotation += 5 * frametime}
-	if rl.IsKeyDown(.A) {player.rotation -= 5 * frametime}
+	if rl.IsKeyDown(.D) {player.rotation += 2.5 * frametime}
+	if rl.IsKeyDown(.A) {player.rotation -= 2.5 * frametime}
 	player.translation += (y_axis * 100) * frametime
 }
 
@@ -30,6 +35,13 @@ lerp_transform :: proc(transform: ^Transform, target_transform: Transform, delta
 }
 
 spawn_segment :: proc(world: ^World) {
-	player : ^Player = &world.player
-	append(&world.segments, Segment{ transform = player.transform})
+	if len(world.segments) < 5 {
+		player : ^Player = &world.player
+		append(&world.segments, Segment{ transform = player.transform})
+	}
+}
+
+track_position :: proc(world: ^World) {
+	player: ^Player = &world.player
+	append(&world.positions, player.transform)
 }

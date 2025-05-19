@@ -94,7 +94,7 @@ draw_segments :: proc(world: World) {
 
 		// If first segment, draw tail
 		if seg_i == 0 {
-			tail_tip:= segment.translation + (y_axis * -20)
+			tail_tip:= segment.translation + (x_axis * 0) + (y_axis * -20)
 			rl.DrawTriangle(tail_tip, points[0], points[1], rl.RED)
 		} else {
 			//Draw the blocks connecting the segments
