@@ -81,16 +81,26 @@ draw_segments :: proc(world: World) {
 		rl.DrawTriangle(points[2],points[1], points[0], PLAYER_COLOR)
 		rl.DrawTriangle(points[3],points[2], points[0], PLAYER_COLOR)
 
-		//Draw the blocks connecting the segments
+
 		if seg_i == len(world.segments) -1 {
-			bottom_2 = {
-				player_translation + (player_x_axis * 15) + (player_y_axis * -30),
-				player_translation + (player_x_axis * -15) + (player_y_axis * -30),
+		// If last segment, connect to head
+			player_points: [2]Vec2 = {
+					player_translation + (player_x_axis * -15) + (player_y_axis * -30),
+					player_translation + (player_x_axis * 15) + (player_y_axis * -30),
 			}
+			rl.DrawTriangle(player_points[0], player_points[1], points[2], PLAYER_COLOR)
+			rl.DrawTriangle(points[2], points[3], player_points[0], PLAYER_COLOR)
 		}
 
-		rl.DrawTriangle(points[0], points[1], bottom_2[1], PLAYER_COLOR)
-		rl.DrawTriangle(bottom_2[1], bottom_2[0], points[0], PLAYER_COLOR)
+		// If first segment, draw tail
+		if seg_i == 0 {
+			tail_tip:= segment.translation + (y_axis * -20)
+			rl.DrawTriangle(tail_tip, points[0], points[1], rl.RED)
+		} else {
+			//Draw the blocks connecting the segments
+			rl.DrawTriangle(points[0], points[1], bottom_2[1], PLAYER_COLOR)
+			rl.DrawTriangle(bottom_2[1], bottom_2[0], points[0], PLAYER_COLOR)
+		}
 
 		bottom_2 = {points[3], points[2]}
 	}
