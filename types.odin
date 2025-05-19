@@ -41,5 +41,4 @@ World :: struct {
 	player: Player,
 	segments: [dynamic]Segment,
 	pickups: [dynamic]Pickup,
-	positions: [dynamic]Transform
 }

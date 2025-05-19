@@ -41,3 +41,7 @@ mag :: proc(vector: $T/[$dimensions]f32) -> f32 {
 	}
 	return math.sqrt(result)
 }
+
+distance :: proc(a: $T/[$dimensions]f32, b: T) -> f32 {
+	return mag(b - a)
+}

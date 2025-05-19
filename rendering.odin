@@ -90,6 +90,9 @@ draw_segments :: proc(world: World) {
 			}
 			rl.DrawTriangle(player_points[0], player_points[1], points[2], PLAYER_COLOR)
 			rl.DrawTriangle(points[2], points[3], player_points[0], PLAYER_COLOR)
+
+			rl.DrawTriangle(points[2], player_points[1], player_points[0], PLAYER_COLOR)
+			rl.DrawTriangle(player_points[0], points[3], points[2], PLAYER_COLOR)
 		}
 
 		// If first segment, draw tail

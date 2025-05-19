@@ -23,7 +23,6 @@ main :: proc() {
 		},
 		segments = make([dynamic]Segment, 0, 24),
 		pickups = make([dynamic]Pickup, 0, 24),
-		positions = make([dynamic]Transform, 0, 24),
 	}
 
 	when ODIN_DEBUG {
