@@ -57,14 +57,12 @@ draw_player :: proc(player: Player) {
 }
 
 draw_segments :: proc(world: World) {
-
-
 	player_x_axis:= rotate({1,0}, world.player.rotation)
 	player_y_axis:= rotate({0,1}, world.player.rotation)
 	player_translation:=  world.player.translation
 
 	bottom_2: [2]Vec2
-	#reverse for segment, seg_i in world.segments {
+	for segment, seg_i in world.segments {
 		x_axis:= rotate({1,0}, segment.rotation)
 		y_axis:= rotate({0,1}, segment.rotation)
 		
@@ -79,18 +77,21 @@ draw_segments :: proc(world: World) {
 			points[i] = segment.translation + (x_axis * point.x) + (y_axis * point.y)
 		}
 
+		// Draw the main block of the segment
 		rl.DrawTriangle(points[2],points[1], points[0], PLAYER_COLOR)
 		rl.DrawTriangle(points[3],points[2], points[0], PLAYER_COLOR)
-		if seg_i != 0 {
-			if seg_i == len(world.segments) {
-				bottom_2 = {
-					player_translation + (player_x_axis * -15) + (player_y_axis * -30),
-					player_translation + (player_x_axis * 15) + (player_y_axis * -30),
-				}
+
+		//Draw the blocks connecting the segments
+		if seg_i == len(world.segments) -1 {
+			bottom_2 = {
+				player_translation + (player_x_axis * 15) + (player_y_axis * -30),
+				player_translation + (player_x_axis * -15) + (player_y_axis * -30),
 			}
-			rl.DrawTriangle(bottom_2[1], points[3],points[2], PLAYER_COLOR)
-			rl.DrawTriangle(bottom_2[1], bottom_2[0], points[2], PLAYER_COLOR)
 		}
-		bottom_2 = {points[0], points[1]}
+
+		rl.DrawTriangle(points[0], points[1], bottom_2[1], PLAYER_COLOR)
+		rl.DrawTriangle(bottom_2[1], bottom_2[0], points[0], PLAYER_COLOR)
+
+		bottom_2 = {points[3], points[2]}
 	}
 }
