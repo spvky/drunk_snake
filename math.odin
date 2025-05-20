@@ -35,6 +35,7 @@ extend :: proc(vector: Vec2, z: f32) -> Vec3 {
 }
 
 mag :: proc(vector: $T/[$dimensions]f32) -> f32 {
+	assert(dimensions > 1 && dimensions < 5)
 	result: f32
 	for i in 0..<dimensions {
 		result += vector[i]*vector[i]

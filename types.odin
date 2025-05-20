@@ -3,6 +3,7 @@ package main
 import rl "vendor:raylib"
 
 Vec2 :: [2]f32
+Triangle :: [3]Vec2
 Vec3 :: [3]f32
 
 Character :: enum {
@@ -41,4 +42,6 @@ World :: struct {
 	player: Player,
 	segments: [dynamic]Segment,
 	pickups: [dynamic]Pickup,
+	collision_triangles: [dynamic]Triangle,
+	is_alive: bool
 }

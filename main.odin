@@ -19,10 +19,13 @@ main :: proc() {
 	world: World = {
 		player = Player{
 			points = {{-10,-20},{10,-20},{0,20}},
-			translation = {SCREEN_WIDTH /2, SCREEN_HEIGHT/2}
+			translation = {SCREEN_WIDTH /2, SCREEN_HEIGHT/2},
+			rotation = math.PI
 		},
 		segments = make([dynamic]Segment, 0, 24),
 		pickups = make([dynamic]Pickup, 0, 24),
+		collision_triangles = make([dynamic]Triangle, 0, 1024,context.temp_allocator),
+		is_alive = true
 	}
 
 	when ODIN_DEBUG {
@@ -47,6 +50,8 @@ main :: proc() {
 		frametime := rl.GetFrameTime()
 		update(&world, frametime)
 		draw(world, frametime)
+		free_all(context.temp_allocator)
+		clear(&world.collision_triangles)
 	}
 }
 
