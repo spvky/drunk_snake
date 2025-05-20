@@ -41,7 +41,7 @@ TestStruct :: struct {
 World :: struct {
 	player: Player,
 	segments: [dynamic]Segment,
-	pickups: [dynamic]Pickup,
+	pickup: Maybe(Transform),
 	collision_triangles: [dynamic]Triangle,
 	is_alive: bool
 }

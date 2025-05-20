@@ -54,14 +54,14 @@ spawn_segment :: proc(world: ^World) {
 }
 
 kill_player ::proc(world: ^World) {
-	player: ^Player = &world.player
+	nose := interpolate_point(world.player.transform, {0, 30})
 
-	if player.x > SCREEN_WIDTH || player.x < 0 || player.y > SCREEN_HEIGHT || player.y < 0 {
+	if nose.x > SCREEN_WIDTH || nose.x < 0 || nose.y > SCREEN_HEIGHT || nose.y < 0 {
 		world.is_alive = false
 	}
 
 	for t in world.collision_triangles {
-		if rl.CheckCollisionPointTriangle(player.translation, t[0], t[1], t[2]) {
+		if rl.CheckCollisionPointTriangle(nose, t[0], t[1], t[2]) {
 			world.is_alive = false
 			break
 		}

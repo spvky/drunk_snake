@@ -7,6 +7,7 @@ draw :: proc(world: World, frametime: f32) {
 	rl.ClearBackground(rl.Color{255,229,180,1})
 	draw_player(world.player)
 	draw_collision(world)
+	draw_apple(world)
 	defer rl.EndDrawing()
 }
 

@@ -22,8 +22,8 @@ main :: proc() {
 			translation = {SCREEN_WIDTH /2, SCREEN_HEIGHT/2},
 			rotation = math.PI
 		},
+		pickup = Transform {translation = {100,100}, rotation = math.PI},
 		segments = make([dynamic]Segment, 0, 24),
-		pickups = make([dynamic]Pickup, 0, 24),
 		collision_triangles = make([dynamic]Triangle, 0, 1024,context.temp_allocator),
 		is_alive = true
 	}
