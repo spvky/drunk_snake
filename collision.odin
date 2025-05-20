@@ -20,7 +20,8 @@ set_collision_triangles :: proc(world: ^World) {
 		}
 
 		for point, i in points {
-			points[i] = segment.translation + (x_axis * point.x) + (y_axis * point.y)
+			// points[i] = segment.translation + (x_axis * point.x) + (y_axis * point.y)
+			points[i] = interpolate_point(segment.transform, point)
 		}
 
 		// Draw the main block of the segment

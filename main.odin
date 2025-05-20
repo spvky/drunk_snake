@@ -51,7 +51,9 @@ main :: proc() {
 		update(&world, frametime)
 		draw(world, frametime)
 		free_all(context.temp_allocator)
-		clear(&world.collision_triangles)
+		if world.is_alive {
+			clear(&world.collision_triangles)
+		}
 	}
 }
 

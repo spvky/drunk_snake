@@ -43,7 +43,14 @@ segment_movement :: proc(world: ^World, frametime: f32) {
 
 spawn_segment :: proc(world: ^World) {
 		player : ^Player = &world.player
-		append(&world.segments, Segment{ transform = player.transform})
+		segment_len: = len(world.segments)
+		if segment_len > 0 {
+			last_segment := world.segments[segment_len - 1]
+			append(&world.segments, Segment{ transform = last_segment.transform})
+		} else {
+			spawn_point := interpolate_point(player.transform, {0,-20})
+			append(&world.segments, Segment{ transform = {translation = spawn_point, rotation = player.rotation}})
+		}
 }
 
 kill_player ::proc(world: ^World) {
@@ -51,5 +58,12 @@ kill_player ::proc(world: ^World) {
 
 	if player.x > SCREEN_WIDTH || player.x < 0 || player.y > SCREEN_HEIGHT || player.y < 0 {
 		world.is_alive = false
+	}
+
+	for t in world.collision_triangles {
+		if rl.CheckCollisionPointTriangle(player.translation, t[0], t[1], t[2]) {
+			world.is_alive = false
+			break
+		}
 	}
 }

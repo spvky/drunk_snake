@@ -46,3 +46,13 @@ mag :: proc(vector: $T/[$dimensions]f32) -> f32 {
 distance :: proc(a: $T/[$dimensions]f32, b: T) -> f32 {
 	return mag(b - a)
 }
+
+interpolate_point :: proc(transform: Transform, point: Vec2) -> Vec2 {
+	x_axis := rotate({1,0}, transform.rotation)
+	y_axis := rotate({0,1}, transform.rotation)
+	return transform.translation + (x_axis * point.x) + (y_axis * point.y)
+}
+
+rotation_axes :: proc(transform: Transform) -> (x_axis: Vec2, y_axis: Vec2) {
+			return
+}

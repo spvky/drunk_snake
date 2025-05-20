@@ -6,7 +6,6 @@ draw :: proc(world: World, frametime: f32) {
 	rl.BeginDrawing()
 	rl.ClearBackground(rl.Color{255,229,180,1})
 	draw_player(world.player)
-	// draw_segments(world)
 	draw_collision(world)
 	defer rl.EndDrawing()
 }
@@ -32,18 +31,16 @@ draw_player :: proc(player: Player) {
 			{23,12}
 		}
 
-		x_axis:= rotate({1,0}, player.rotation)
-		y_axis:= rotate({0,1}, player.rotation)
 		for point, i in points {
 			/*
 				points[i] = player.center + (x_axis * point.x) + (y_axis + point.y)
 				will give a fun pseudo 3d rotation
 			*/
-			points[i] = player.translation + (x_axis * point.x) + (y_axis * point.y)
+			points[i] = interpolate_point(player.transform, point)
 		}
 
 		for eye, i in eyes {
-			eyes[i] = player.translation + (x_axis * eye.x) + (y_axis * eye.y)
+			eyes[i] = interpolate_point(player.transform, eye)
 		}
 
 		rl.DrawCircleV(eyes[0],7,rl.BLACK)
