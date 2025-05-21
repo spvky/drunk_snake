@@ -20,7 +20,11 @@ main :: proc() {
 		player = Player{
 			points = {{-10,-20},{10,-20},{0,20}},
 			translation = {SCREEN_WIDTH /2, SCREEN_HEIGHT/2},
-			rotation = math.PI
+			rotation = math.PI,
+			target_speed = 150,
+			speed = 150,
+			target_turnspeed = 2.5,
+			turnspeed = 2.5,
 		},
 		pickup = Transform {translation = {100,100}, rotation = math.PI},
 		segments = make([dynamic]Segment, 0, 24),

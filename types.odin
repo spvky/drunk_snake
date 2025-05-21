@@ -14,8 +14,12 @@ Character :: enum {
 Player :: struct {
 	points: [3]Vec2,
 	using transform: Transform,
-	animation_progress: f32,
 	position_timer: f32,
+	target_speed: f32,
+	speed: f32,
+	target_turnspeed: f32,
+	turnspeed: f32,
+	quadrant: Quadrant,
 }
 
 Segment :: struct {
@@ -37,11 +41,18 @@ TestStruct :: struct {
 	val: int
 }
 
+Quadrant :: enum {
+	NE,
+	NW,
+	SE,
+	SW
+}
+
 // Struct that contains all of the data in the game world
 World :: struct {
 	player: Player,
 	segments: [dynamic]Segment,
-	pickup: Maybe(Transform),
+	pickup: Transform,
 	collision_triangles: [dynamic]Triangle,
 	is_alive: bool
 }
