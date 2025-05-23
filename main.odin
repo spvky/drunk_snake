@@ -26,6 +26,7 @@ main :: proc() {
 			target_turnspeed = 2.5,
 			turnspeed = 2.5,
 		},
+		gamestate = .Gameplay,
 		pickup = Transform {translation = {100,100}, rotation = math.PI},
 		segments = make([dynamic]Segment, 0, 24),
 		collision_triangles = make([dynamic]Triangle, 0, 1024,context.temp_allocator),

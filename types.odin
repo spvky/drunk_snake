@@ -4,11 +4,11 @@ import rl "vendor:raylib"
 
 Vec2 :: [2]f32
 Triangle :: [3]Vec2
-Vec3 :: [3]f32
 
-Character :: enum {
-	enemy,
-	player
+GameState :: enum {
+	MainMenu,
+	Gameplay,
+	Gameover
 }
 
 Player :: struct {
@@ -54,5 +54,7 @@ World :: struct {
 	segments: [dynamic]Segment,
 	pickup: Transform,
 	collision_triangles: [dynamic]Triangle,
-	is_alive: bool
+	is_alive: bool,
+	gamestate: GameState,
+	score: u8
 }

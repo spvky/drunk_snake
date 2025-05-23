@@ -6,7 +6,7 @@ import "core:math/rand"
 import rl "vendor:raylib"
 
 update :: proc(world: ^World, frametime: f32) {
-	if world.is_alive {
+	if world.is_alive && world.gamestate == .Gameplay {
 		player : ^Player = &world.player
 		player.position_timer += frametime;
 		if player.position_timer > 0.5 {
@@ -104,11 +104,12 @@ set_player_quadrant :: proc(world: ^World) {
 eat_apple :: proc(world: ^World) {
 	nose := interpolate_point(world.player.transform, {0, 30})
 	player := &world.player
-	if rl.CheckCollisionPointCircle(nose, world.pickup.translation,20) {
+if rl.CheckCollisionPointCircle(nose, world.pickup.translation,20) {
 		spawn_segment(world)
 		player.target_speed *= 1.15
 		player.target_turnspeed *= 1.1
 		world.pickup.translation = random_position_in_quadrant(new_quadrant(player.quadrant))
+		world.score += 1
 	}
 }
 

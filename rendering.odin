@@ -8,6 +8,8 @@ draw :: proc(world: World, frametime: f32) {
 	draw_player(world.player)
 	draw_collision(world)
 	draw_apple(world)
+	draw_score(world)
+	draw_menu(world)
 	defer rl.EndDrawing()
 }
 

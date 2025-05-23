@@ -26,14 +26,6 @@ lerp_vec :: proc(a: $T/[$dimensions]f32, b: T, d: f32) -> T {
 }
 
 
-chop :: proc(vector: Vec3) -> Vec2 {
-	return [2]f32{vector.x, vector.y}
-}
-
-extend :: proc(vector: Vec2, z: f32) -> Vec3 {
-	return [3]f32{vector.x, vector.y, z}
-}
-
 mag :: proc(vector: $T/[$dimensions]f32) -> f32 {
 	assert(dimensions > 1 && dimensions < 5)
 	result: f32
